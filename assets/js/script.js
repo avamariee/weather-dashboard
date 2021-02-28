@@ -13,7 +13,7 @@ function weatherFetch(city) {
         city
         +
         // key
-        '&appid=8bed639fd98c9152d287e65173b6a1c7'
+        '&units=imperial&appid=8bed639fd98c9152d287e65173b6a1c7'
     )
         .then(function (response) {
             return response.json();
@@ -24,21 +24,22 @@ function weatherFetch(city) {
 
             let citySearch = document.querySelector("#city-search")
 
-            citySearch.innerHTML = response.name + '  ' + new Date().toLocaleString();
+            citySearch.innerHTML = '<h2> ' + response.name + ' (' + new Date().toLocaleString() + ")</h2> " // weather icon???
+            
 
             // additional data
 
             let cityTemp = document.querySelector("#temperature")
-            cityTemp.innerHTML = "Temperature: " + response.main.temp
+            cityTemp.innerHTML = "Temperature: " + response.main.temp +" °F"
 
             let cityHumidity = document.querySelector("#humidity")
-            cityHumidity.innerHTML = "Humidity: " + response.main.humidity
+            cityHumidity.innerHTML = "Humidity: " + response.main.humidity + "%"
 
             let cityWind = document.querySelector("#wind")
-            cityWind.innerHTML = "Wind speed: " + response.wind.speed + " miles per hour."
+            cityWind.innerHTML = "Wind Speed: " + response.wind.speed + " MPH"
 
             let cityWeather = document.querySelector("#weather")
-            cityWeather.innerHTML = "Current weather: " + response.weather[0].description
+            cityWeather.innerHTML = "Current Weather: " + response.weather[0].description
 
         })
 
