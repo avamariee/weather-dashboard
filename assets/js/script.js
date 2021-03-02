@@ -19,8 +19,8 @@ function weatherFetch(city) {
             return response.json();
         })
         .then(function (response) {
-            console.log(response);
-            console.log(response.name)
+            // console.log(response);
+            // console.log(response.name)
 
             let citySearch = document.querySelector("#city-search")
 
@@ -41,35 +41,43 @@ function weatherFetch(city) {
             let cityWeather = document.querySelector("#weather")
             cityWeather.innerHTML = "Current Weather: " + response.weather[0].description
 
+           
+
+            return latLon(response.coord.lat, response.coord.lon);
+
+
+
         })
+        .then(function (response){
+            return response.json();
+        })
+        .then(function (response) {
+            console.log(response);
 
-    fetch(
-        // make a fetch request for the 5-day forecast
-        "https://api.openweathermap.org/data/2.5/forecast?q="
-        +
-        // search term
-        city +
-        // key
-        "&appid=8bed639fd98c9152d287e65173b6a1c7"
-    )
-    .then(function(response){
-        return response.json();
-    })
-    .then(function(response){
-        console.log(response);
-        console.log(response.name)
-
-        // day one forecast
-
-        let dayOne = document.querySelector("#day-one")
-        dayOne.innerHTML = response.list[0].main
-    })
-
-   
-
-
-
+            let uvIndex = document.querySelector("#uv")
+            uvIndex.innerHTML = "UV Index: " + response.current.uvi
+        })
+        .catch(function (error){
+            console.log(error);
+        });
 }
+
+function latLon(lat, lon) {
+    return fetch(
+
+        "https://api.openweathermap.org/data/2.5/onecall?"
+
+        +
+
+        "lat=" + lat +
+
+        "&lon=" + lon +
+
+        "&appid=8bed639fd98c9152d287e65173b6a1c7"
+        
+    ) 
+}
+
 
 function buttonPress() {
 
