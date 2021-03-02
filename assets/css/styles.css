@@ -34,3 +34,8 @@ input:focus {
     padding: 5px;
     font-size: 20px;
 }
+.forecast {
+    background-color: rgb(28, 161, 132);
+    margin: 10px;
+    
+}

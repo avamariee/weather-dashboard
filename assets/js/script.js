@@ -24,7 +24,7 @@ function weatherFetch(city) {
 
             let citySearch = document.querySelector("#city-search")
 
-            citySearch.innerHTML = '<h2> ' + response.name + ' (' + new Date().toLocaleString() + ")</h2> " // weather icon???
+            citySearch.innerHTML = '<h2> ' + response.name + ' (' + new Date().toLocaleString() + ')</h2><img src="http://openweathermap.org/img/w/' + response.weather[0].icon + '.png" />'
             
 
             // additional data
