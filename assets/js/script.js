@@ -100,7 +100,7 @@ function weatherFetch(city) {
 
 
             let day = document.querySelector("#date-" + date)
-            day.innerHTML = response.daily[index].dt
+            day.innerHTML = new Date(response.daily[index].dt * 1000).toLocaleDateString();
 
             let dayTemp = document.querySelector("#temperature-" + date)
             dayTemp.innerHTML = "Temperature: " + response.daily[index].temp.day + " °F" + '<img src="http://openweathermap.org/img/w/' + response.daily[index].weather[0].icon + '.png" />'
@@ -149,6 +149,9 @@ function latLon(lat, lon) {
 }
 
 // records city name upon button press
+
+// add code to loop through cities and add to city history
+
 
 function buttonPress() {
 
