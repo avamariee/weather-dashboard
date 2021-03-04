@@ -34,8 +34,25 @@ input:focus {
     padding: 5px;
     font-size: 20px;
 }
+.weather-display > * {
+    padding: 0.5em;
+}
+/* 5 days forecast card stylings */
+
 .forecast {
     background-color: rgb(28, 161, 132);
     margin: 10px;
+    padding: 40px;
     
+
+}
+/* styles for UV index */
+.good {
+    background-color: green;
+}
+.moderate {
+    background-color: yellow;
+}
+.bad {
+    background-color: red;
 }
