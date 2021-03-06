@@ -161,6 +161,7 @@ function latLon(lat, lon) {
 
 }
 
+// function to add to local storage on button press
 
 function buttonPress() {
 
