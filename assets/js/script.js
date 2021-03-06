@@ -110,7 +110,7 @@ function weatherFetch(city) {
             function dayForecast(index, date) {
 
                 let day = document.querySelector("#date-" + date)
-                day.innerHTML = new Date(response.daily[index].dt * 1000).toLocaleDateString();
+                day.innerHTML = '<h4>' + new Date(response.daily[index].dt * 1000).toLocaleDateString() + "</h4>"
 
                 let dayTemp = document.querySelector("#temperature-" + date)
                 dayTemp.innerHTML = "Temperature: " + response.daily[index].temp.day + " °F" + '<img src="http://openweathermap.org/img/w/' + response.daily[index].weather[0].icon + '.png" />'
