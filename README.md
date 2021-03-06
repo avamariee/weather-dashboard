@@ -13,8 +13,8 @@ https://avamariee.github.io/weather-dashboard/
 >
 > There is also a 5-day forecast displayed with an icon to help the user visualize the weather for that day.
 
-![Screenshot One](/assets/screenshot1.jpg)
-![Screenshot Two](/assets/screenshot2.jpg)
+![Screenshot One](/assets/screenshot1.JPG)
+![Screenshot Two](/assets/screenshot2.JPG)
 
 
 
