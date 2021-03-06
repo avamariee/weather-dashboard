@@ -1,7 +1,7 @@
 let cityName = document.querySelector("#city-name")
-let cityHistory = document.querySelector("#city-history")
 let weatherDisplay = document.getElementById("#weather-display")
 let searchButton = document.getElementById("search-button");
+city = [];
 
 function weatherFetch(city) {
 
@@ -25,12 +25,12 @@ function weatherFetch(city) {
             let citySearch = document.querySelector("#city-search")
 
             citySearch.innerHTML = '<h2> ' + response.name + ' (' + new Date().toLocaleString() + ')</h2><img src="http://openweathermap.org/img/w/' + response.weather[0].icon + '.png" />'
-            
+
 
             // additional data
 
             let cityTemp = document.querySelector("#temperature")
-            cityTemp.innerHTML = "Temperature: " + response.main.temp +" °F"
+            cityTemp.innerHTML = "Temperature: " + response.main.temp + " °F"
 
             let cityHumidity = document.querySelector("#humidity")
             cityHumidity.innerHTML = "Humidity: " + response.main.humidity + "%"
@@ -41,16 +41,27 @@ function weatherFetch(city) {
             let cityWeather = document.querySelector("#weather")
             cityWeather.innerHTML = "Current Weather: " + response.weather[0].description + '<img src="http://openweathermap.org/img/w/' + response.weather[0].icon + '.png" />'
 
-           
+
 
             return latLon(response.coord.lat, response.coord.lon);
 
+            // set city name in local storage
 
 
-        })
-        .then(function (response){
+
+
+
+
+
+        }
+        )
+        .then(function (response) {
             return response.json();
+
         })
+
+
+
 
         // 5 day forecast one call fetch response & UV index
 
@@ -59,13 +70,13 @@ function weatherFetch(city) {
 
             let uvIndex = document.querySelector("#uv")
             uvIndex.innerHTML = "UV Index: " + response.current.uvi
-            if (response.current.uvi <= 2){
+            if (response.current.uvi <= 2) {
                 // low UV index
                 uvIndex.classList.remove("bad")
                 uvIndex.classList.remove("moderate")
                 uvIndex.classList.add("good")
 
-            } else if (response.current.uvi > 3 && response.current.uvi < 7 ) {
+            } else if (response.current.uvi > 3 && response.current.uvi < 7) {
                 // moderate UV index
                 uvIndex.classList.remove("bad")
                 uvIndex.classList.remove("good")
@@ -77,7 +88,7 @@ function weatherFetch(city) {
                 uvIndex.classList.remove("good")
                 uvIndex.classList.remove("moderate")
             }
-            
+
 
             // 5 day forecast
 
@@ -96,33 +107,35 @@ function weatherFetch(city) {
 
             // day two? same thing?? DRY??????
 
-             function dayForecast (index, date){
+            function dayForecast(index, date) {
 
+                let day = document.querySelector("#date-" + date)
+                day.innerHTML = new Date(response.daily[index].dt * 1000).toLocaleDateString();
 
-            let day = document.querySelector("#date-" + date)
-            day.innerHTML = new Date(response.daily[index].dt * 1000).toLocaleDateString();
+                let dayTemp = document.querySelector("#temperature-" + date)
+                dayTemp.innerHTML = "Temperature: " + response.daily[index].temp.day + " °F" + '<img src="http://openweathermap.org/img/w/' + response.daily[index].weather[0].icon + '.png" />'
+                // day two humidity
+                let dayWet = document.querySelector("#humidity-" + date)
+                dayWet.innerHTML = "Humidity: " + response.daily[index].humidity + " %"
+                // day Two wind speed
+                let dayWind = document.querySelector("#wind-" + date)
+                dayWind.innerHTML = "Wind Speed: " + response.daily[index].wind_speed + " MPH"
+                // day Two UV index
+                let dayUV = document.querySelector("#uv-" + date)
+                dayUV.innerHTML = "UV Index: " + response.daily[index].uvi
 
-            let dayTemp = document.querySelector("#temperature-" + date)
-            dayTemp.innerHTML = "Temperature: " + response.daily[index].temp.day + " °F" + '<img src="http://openweathermap.org/img/w/' + response.daily[index].weather[0].icon + '.png" />'
-            // day two humidity
-            let dayWet = document.querySelector("#humidity-" + date)
-            dayWet.innerHTML = "Humidity: " + response.daily[index].humidity + " %"
-            // day Two wind speed
-            let dayWind = document.querySelector("#wind-" + date)
-            dayWind.innerHTML = "Wind Speed: " + response.daily[index].wind_speed + " MPH"
-            // day Two UV index
-            let dayUV = document.querySelector("#uv-" + date)
-            dayUV.innerHTML = "UV Index: " + response.daily[index].uvi
             }
+
             dayForecast(1, 2)
             dayForecast(2, 3)
             dayForecast(3, 4)
             dayForecast(4, 5)
 
+            // city histories in local storage
 
-            
+             
         })
-        .catch(function (error){
+        .catch(function (error) {
             console.log(error);
         });
 }
@@ -142,15 +155,11 @@ function latLon(lat, lon) {
 
         "&units=imperial&appid=8bed639fd98c9152d287e65173b6a1c7"
 
-        
-        
-    ) 
-    
+
+
+    )
+
 }
-
-// records city name upon button press
-
-// add code to loop through cities and add to city history
 
 
 function buttonPress() {
@@ -160,7 +169,37 @@ function buttonPress() {
 
     weatherFetch(cityName.value);
 
+    let cityInput = document.getElementById("city-name")
+    city.push(cityInput.value)
+
+    localStorage.setItem('cityName', JSON.stringify(city))
+    weatherFetch(cityInput.value)
+
+    
+let cityHistory = function () {
+    cityHistory = document.querySelector("#city-ul")
+    cityHistory.textContent = ""
+        let cityList = JSON.parse(localStorage.getItem("cityName"))
+    console.log(cityList)
+    var i, len, text;
+    for (i = 0, len = cityList.length, text = ''; i < len; i++) {
+
+        text = cityList[i];
+        let cities = document.createElement("li")
+        cities.addEventListener("click", function (event) {
+            weatherFetch(event.target.textContent)
+        })
+        cities.textContent = text
+        cityHistory.appendChild(cities)
+    }
+
+}
+cityHistory();
+
 }
 
-searchButton.addEventListener("click", buttonPress)
 
+
+
+
+searchButton.addEventListener("click", buttonPress)
