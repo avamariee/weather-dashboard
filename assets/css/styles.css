@@ -1,3 +1,58 @@
-* {
-    font-family: 'Chewy', cusrive;
+a {
+    color: white;
+}
+.card {
+    padding: 15px;
+}
+.title {
+    color: white;
+    background-color: rgb(71, 69, 69);
+    text-align: center;
+    font-weight: bold;
+}
+.title a:hover {
+    color: black;
+    text-decoration: none;
+}
+.btn {
+    background-color: rgb(28, 161, 132);
+    vertical-align: middle;
+}
+input {
+    background-color: rgb(226, 225, 225);
+    border: 3px solid rgb(150, 145, 145);
+    border-radius: 5px;
+    outline: none;
+    padding: 5px;
+    vertical-align: middle;
+}
+input:focus {
+    border: 3px solid rgb(22, 22, 22);
+}
+
+.weather-list {
+    padding: 5px;
+    font-size: 20px;
+}
+.weather-display > * {
+    padding: 0.5em;
+}
+/* 5 days forecast card stylings */
+
+.forecast {
+    background-color: rgb(28, 161, 132);
+    margin: 10px;
+    padding: 40px;
+    
+
+}
+/* styles for UV index */
+.good {
+    background-color: green;
+}
+.moderate {
+    background-color: yellow;
+}
+.bad {
+    background-color: red;
 }
